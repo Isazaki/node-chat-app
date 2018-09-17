@@ -25,15 +25,9 @@ io.on('connection', socket => {
         generateMessage('Admin', 'Text new user joined')
     );
 
-    socket.on('createMessage', message => {
+    socket.on('createMessage', (message, callback) => {
         console.log('createMessage', message);
-
-        io.emit('newMessage', generateMessage(message.from, message.done));
-        // socket.broadcast.emit('newMessage', {
-        //     from: message.from,
-        //     text: message.text,
-        //     createdAt: new Date().getTime()
-        // });
+        io.emit('newMessage', generateMessage(message.from, message.text));
     });
 
     socket.on('disconnect', () => {
